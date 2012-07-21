@@ -7,6 +7,10 @@ class City {
 	String mundaneStatusQuo
 	
     static constraints = {
+		cityName(size:3..30)
+		campaignTitle(maxSize:60, nullable: true)
+		supernaturalStatusQuo(maxSize:240, nullable: true)
+		mundaneStatusQuo(maxSize:240, nullable: true)
     }
 	
 	static hasMany = {

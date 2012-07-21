@@ -1,7 +1,5 @@
 package org.buzzthewindling
 
-
-
 import grails.test.mixin.*
 import org.junit.*
 
@@ -11,7 +9,36 @@ import org.junit.*
 @TestFor(Relationship)
 class RelationshipTests {
 
-    void testSomething() {
-       fail "Implement me"
+    void testEverythingNullSave() {
+       def relationship = new Relationship()
+	   assertFalse relationship.validate()
+	   assertTrue relationship.hasErrors()
+	   
+	   def errors = relationship.errors
+	   assertEquals "nullable", errors.getFieldError("relationshipType").code
     }
+	
+	void testSave() {
+		def relationship = new Relationship(faceName: 'brother')
+		assertTrue relationship.validate()
+		assertFalse relationship.hasErrors()
+	 }
+	
+	void testRelationshipTypeTooShort() {
+		def relationship = new Relationship(faceName: 'Te')		
+		assertFalse relationship.validate()
+		assertTrue relationship.hasErrors()
+		
+		def errors = relationship.errors
+		assertEquals "size.toosmall", errors.getFieldError("relationshipType").code
+	 }
+	
+	void testRelationshipTypeTooLong() {
+		def relationship = new Relationship(faceName: 'The test Relationship with a relationshipType too long')
+		assertFalse relationship.validate()
+		assertTrue relationship.hasErrors()
+		
+		def errors = relationship.errors
+		assertEquals "size.toobig", errors.getFieldError("relationshipType").code
+	 }
 }

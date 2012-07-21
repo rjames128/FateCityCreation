@@ -7,6 +7,7 @@ class Relationship {
 	Face withFace
 
     static constraints = {
+		relationshipType(size:3..30)
     }
 	
 }

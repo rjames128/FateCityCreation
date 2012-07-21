@@ -7,6 +7,9 @@ class Face {
 	String motivation
 	
     static constraints = {
+		faceName(size:3..30)
+		highConcept(maxSize:60, nullable: true)
+		motivation(maxSize:60, nullable: true)
     }
 	
 	static hasMany = [
