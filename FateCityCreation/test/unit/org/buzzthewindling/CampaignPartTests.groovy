@@ -26,9 +26,6 @@ class CampaignPartTests {
 		def campaignPart = new CampaignPart(type: CampaignPartType.Theme, idea: 'A city theme idea')
 		campaignPart.city = city
 		
-		campaignPart.validate()
-		def errors = campaignPart.errors
-		
 		assertTrue campaignPart.validate()
 		assertFalse campaignPart.hasErrors()
 	 }
@@ -67,7 +64,7 @@ class CampaignPartTests {
 		assertEquals "maxSize.exceeded", errors.getFieldError("idea").code
 	}
 	
-	void testLocationNoIdeaError() {
+	void testLocationNoIdeaSave() {
 		def city = new City(cityName: 'Phoenix')
 		def campaignPart = new CampaignPart(type: CampaignPartType.Theme, isLocation: true,
 			locationName: "Govonor Hunt's Tomb")
@@ -105,4 +102,32 @@ class CampaignPartTests {
 		def errors = campaignPart.errors
 		assertEquals "validator.invalid", errors.getFieldError("locationName").code
 	}
+	
+	void testAspectTooLongError() {
+		def city = new City(cityName: 'Phoenix')
+		def campaignPart = new CampaignPart(type: CampaignPartType.Theme, idea: 'A city theme idea')
+		campaignPart.city = city
+		
+		campaignPart.aspect = 'I am an aspect for this theme that is too long and so should fail validation'
+		
+		assertFalse campaignPart.validate()
+		assertTrue campaignPart.hasErrors()
+		
+		def errors = campaignPart.errors
+		assertEquals "maxSize.exceeded", errors.getFieldError("aspect").code
+	 }
+	
+	void testDescriptionTooLongError() {
+		def city = new City(cityName: 'Phoenix')
+		def campaignPart = new CampaignPart(type: CampaignPartType.Theme, idea: 'A city theme idea')
+		campaignPart.city = city
+		
+		campaignPart.locationDescription = 'I am an location description for this theme that is too long and so should fail validation when you try to enter a description that is this long'
+		
+		assertFalse campaignPart.validate()
+		assertTrue campaignPart.hasErrors()
+		
+		def errors = campaignPart.errors
+		assertEquals "maxSize.exceeded", errors.getFieldError("locationDescription").code
+	 }
 }
