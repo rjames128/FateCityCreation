@@ -24,6 +24,15 @@ class CityTests {
 		assertFalse city.hasErrors()
 	 }
 	
+	void testCityNameBlank() {
+		def city = new City(cityName: '')
+		assertFalse city.validate()
+		assertTrue city.hasErrors()
+		
+		def errors = city.errors
+		assertEquals "blank", errors.getFieldError("cityName").code
+	 }
+	
 	void testCityNameTooShort() {
 		def city = new City(cityName: 'Te')		
 		assertFalse city.validate()

@@ -7,7 +7,7 @@ class City {
 	String mundaneStatusQuo
 	
     static constraints = {
-		cityName(size:3..30)
+		cityName(size:3..30, blank: false)
 		campaignTitle(maxSize:60, nullable: true)
 		supernaturalStatusQuo(maxSize:240, nullable: true)
 		mundaneStatusQuo(maxSize:240, nullable: true)
