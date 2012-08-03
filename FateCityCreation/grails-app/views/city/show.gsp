@@ -41,6 +41,35 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${cityInstance?.campaignParts?.any {it -> !it.isLocation} }">
+				<li class="fieldcontain">
+					<span id="themeThreat-label" class="property-label"><g:message code="city.themeThreat.label" default="Themes and Threats" /></span>
+					<table>
+				<thead>
+					<tr>
+					
+						<g:sortableColumn property="idea" title="${message(code: 'campaignPart.idea.label', default: 'Idea')}" />
+					
+						<g:sortableColumn property="aspect" title="${message(code: 'campaignPart.aspect.label', default: 'Aspect')}" />
+					
+					</tr>
+				</thead>
+				<tbody>
+					<g:findAll in="${cityInstance?.campaignParts}" expr="!it.isLocation">
+					<tr>
+					
+						<td><g:link action="showThemeThreat" controller="CampaignPart" id="${it.id}">${fieldValue(bean: it, field: "idea")}</g:link></td>
+						
+						<td>${fieldValue(bean: it, field: "aspect")}</td>
+					
+						</tr>
+					</g:findAll>
+					</tbody>
+					</table>
+				</li>
+				</g:if>
+				
+				
 				<g:if test="${cityInstance?.supernaturalStatusQuo}">
 				<li class="fieldcontain">
 					<span id="supernaturalStatusQuo-label" class="property-label"><g:message code="city.supernaturalStatusQuo.label" default="Supernatural Status Quo" /></span>

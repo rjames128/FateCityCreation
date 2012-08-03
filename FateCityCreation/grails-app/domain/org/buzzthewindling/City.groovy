@@ -13,7 +13,7 @@ class City {
 		mundaneStatusQuo(maxSize:240, nullable: true)
     }
 	
-	static hasMany = {
+	static hasMany = [
 		campaignParts : CampaignPart
-	}
+	]
 }
