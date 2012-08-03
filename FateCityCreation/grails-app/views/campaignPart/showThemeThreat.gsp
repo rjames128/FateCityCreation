@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'campaignPart.label', default: 'CampaignPart')}" />
+		<g:set var="entityName" value="${message(code: 'campaignPart.label', default: 'Theme or Threat')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
@@ -22,6 +22,15 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list campaignPart">
+			
+				<g:if test="${campaignPartInstance?.type}">
+				<li class="fieldcontain">
+					<span id="type-label" class="property-label"><g:message code="campaignPart.type.label" default="Type" /></span>
+					
+						<span class="property-value" aria-labelledby="type-label"><g:fieldValue bean="${campaignPartInstance}" field="type"/></span>
+					
+				</li>
+				</g:if>
 			
 				<g:if test="${campaignPartInstance?.idea}">
 				<li class="fieldcontain">
@@ -57,24 +66,6 @@
 						<g:each in="${campaignPartInstance.faces}" var="f">
 						<span class="property-value" aria-labelledby="faces-label"><g:link controller="face" action="show" id="${f.id}">${f?.encodeAsHTML()}</g:link></span>
 						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${campaignPartInstance?.isLocation}">
-				<li class="fieldcontain">
-					<span id="isLocation-label" class="property-label"><g:message code="campaignPart.isLocation.label" default="Is Location" /></span>
-					
-						<span class="property-value" aria-labelledby="isLocation-label"><g:formatBoolean boolean="${campaignPartInstance?.isLocation}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${campaignPartInstance?.type}">
-				<li class="fieldcontain">
-					<span id="type-label" class="property-label"><g:message code="campaignPart.type.label" default="Type" /></span>
-					
-						<span class="property-value" aria-labelledby="type-label"><g:fieldValue bean="${campaignPartInstance}" field="type"/></span>
 					
 				</li>
 				</g:if>

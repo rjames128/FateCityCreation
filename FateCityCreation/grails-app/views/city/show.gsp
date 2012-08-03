@@ -51,6 +51,8 @@
 						<g:sortableColumn property="idea" title="${message(code: 'campaignPart.idea.label', default: 'Idea')}" />
 					
 						<g:sortableColumn property="aspect" title="${message(code: 'campaignPart.aspect.label', default: 'Aspect')}" />
+						
+						<g:sortableColumn property="type" title="${message(code: 'campaignPart.type.label', default: 'Theme or Threat')}" />
 					
 					</tr>
 				</thead>
@@ -61,14 +63,17 @@
 						<td><g:link action="showThemeThreat" controller="CampaignPart" id="${it.id}">${fieldValue(bean: it, field: "idea")}</g:link></td>
 						
 						<td>${fieldValue(bean: it, field: "aspect")}</td>
+						
+						<td>${fieldValue(bean: it, field: "type")}</td>
 					
 						</tr>
 					</g:findAll>
 					</tbody>
 					</table>
 				</li>
-				</g:if>
+				</g:if>				
 				
+				<g:link controller="campaignPart" action="createThemeThreat" params="['city.id': cityInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'themeThreat.label', default: 'Theme or Threat')])}</g:link>				
 				
 				<g:if test="${cityInstance?.supernaturalStatusQuo}">
 				<li class="fieldcontain">
@@ -87,6 +92,40 @@
 					
 				</li>
 				</g:if>
+				
+				<g:if test="${cityInstance?.campaignParts?.any {it -> it.isLocation} }">
+				<li class="fieldcontain">
+					<span id="themeThreat-label" class="property-label"><g:message code="city.themeThreat.label" default="Locations" /></span>
+					<table>
+				<thead>
+					<tr>
+					
+						<g:sortableColumn property="locationName" title="${message(code: 'campaignPart.idea.label', default: 'Location Name')}" />
+					
+						<g:sortableColumn property="locationDescription" title="${message(code: 'campaignPart.aspect.label', default: 'Description')}" />
+						
+						<g:sortableColumn property="type" title="${message(code: 'campaignPart.type.label', default: 'Theme or Threat')}" />
+					
+					</tr>
+				</thead>
+				<tbody>
+					<g:findAll in="${cityInstance?.campaignParts}" expr="it.isLocation">
+					<tr>
+					
+						<td><g:link action="showLocation" controller="CampaignPart" id="${it.id}">${fieldValue(bean: it, field: "locationName")}</g:link></td>
+						
+						<td>${fieldValue(bean: it, field: "locationDescription")}</td>
+						
+						<td>${fieldValue(bean: it, field: "type")}</td>
+					
+						</tr>
+					</g:findAll>
+					</tbody>
+					</table>
+				</li>
+				</g:if>				
+				
+				<g:link controller="campaignPart" action="createLocation" params="['city.id': cityInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'themeThreat.label', default: 'Location')])}</g:link>
 			
 			</ol>
 			<g:form>
